@@ -6,7 +6,10 @@ package jackson.rick;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class PartI {
     
@@ -96,5 +99,28 @@ public class PartI {
             c = c.getSuperclass();
         }
         return back.toString();
+    }
+    
+    public List<Object> instantiateClassHierarchy(Object o) {
+        Class c = o.getClass();
+        List<Object> l = new ArrayList<>();
+        StringBuilder front = new StringBuilder();
+        StringBuilder back = new StringBuilder();
+        boolean go = true;
+        
+        while (go) {
+            try {
+                l.add(c.newInstance());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+            if (c.getSimpleName().equals("Object")) {
+                go = false;
+            } else {
+                c = c.getSuperclass();
+            }
+        }
+        return l;
     }
 }

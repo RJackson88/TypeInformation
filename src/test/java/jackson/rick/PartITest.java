@@ -6,6 +6,8 @@ package jackson.rick;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class PartITest {
@@ -66,4 +68,15 @@ public class PartITest {
         assertEquals(String.format("I expected the result to be: %s", expected),
                 expected, actual);
     }
+    
+    @Test
+    public void instantiateClassHierarchyTest() {
+        String expected = "[jackson.rick.MyClass@deb6432, "
+                + "java.lang.Object@28ba21f3]";
+        String actual = i.instantiateClassHierarchy(myClass).toString();
+        assertEquals(String.format("I expected the result to be: %s", expected),
+                expected, actual);
+    }
+    
+    
 }
